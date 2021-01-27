@@ -22,6 +22,9 @@ def get_command():
 	prompt_style = ">>> "
 	command = input(prompt_style)
 
+	if command.strip() == "exit":
+		sys.exit(1)
+
 	try:
 		result = subprocess.run(command, shell = True, capture_output=True)
 	except:
