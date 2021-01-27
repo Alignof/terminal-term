@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import sys
 import unittest
 import subprocess
 
@@ -17,19 +18,35 @@ class Testing(unittest.TestCase):
 # ****************************************************************************************************
 # ====================================================================================================
 
-def main():
+def get_command():
 	prompt_style = ">>> "
-
 	command = input(prompt_style)
 
 	try:
 		result = subprocess.run(command, shell = True, capture_output=True)
-		stdout = str(result.stdout, encoding='utf-8', errors='replace')
-		stderr = str(result.stderr, encoding='utf-8', errors='replace')
 	except:
 		print("command error")
+		sys.exit(1)
 
-	print(stdout, end='')
+	return result
+
+def display_result(result):
+		if result.returncode == 0 :
+			stdout = str(result.stdout, encoding='utf-8', errors='replace')
+			print(stdout, end='')
+		else:
+			stderr = str(result.stderr, encoding='utf-8', errors='replace')
+			print(stderr, end='')
+
+
+def main():
+	while True:
+		# get user input
+		result = get_command()
+
+		# display ot stdout or stderr
+		display_result(result)
+
 
 if __name__ == "__main__":
     main()
