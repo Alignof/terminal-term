@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
+import subprocess
 
 # unittest
 class Testing(unittest.TestCase):
@@ -17,7 +18,16 @@ class Testing(unittest.TestCase):
 # ====================================================================================================
 
 def main():
-	pass
+	prompt_style = ">>> "
+
+	command = input(prompt_style)
+
+	try:
+		result = subprocess.run(command, shell = True, check = True)
+	except:
+		print("command error")
+
+	print(result)
 
 if __name__ == "__main__":
     main()
