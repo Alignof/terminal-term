@@ -23,11 +23,13 @@ def main():
 	command = input(prompt_style)
 
 	try:
-		result = subprocess.run(command, shell = True, check = True)
+		result = subprocess.run(command, shell = True, capture_output=True)
+		stdout = str(result.stdout, encoding='utf-8', errors='replace')
+		stderr = str(result.stderr, encoding='utf-8', errors='replace')
 	except:
 		print("command error")
 
-	print(result)
+	print(stdout, end='')
 
 if __name__ == "__main__":
     main()
