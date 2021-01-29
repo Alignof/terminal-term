@@ -1,24 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
-import unittest
 import subprocess
-
-# unittest
-class Testing(unittest.TestCase):
-	def get_result(self, command):
-		result  = execute_command(command)
-		stdout  = str(result.stdout, encoding='utf-8', errors='replace')
-		return stdout
-
-	def test_example(self):
-		self.assertEqual(1, 1)
-
-	def test_parse(self):
-		self.assertEqual(self.get_result("echo 'hello'"), "hello\n")
-
-# ====================================================================================================
-# ****************************************************************************************************
-# ====================================================================================================
 
 def get_command():
 	prompt_style = ">>> "
@@ -55,7 +37,7 @@ def main():
 		# execute user input 
 		result  = execute_command(command)
 
-		# display ot stdout or stderr
+		# display stdout or stderr
 		display_result(result)
 
 
