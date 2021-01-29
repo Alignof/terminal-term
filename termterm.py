@@ -27,7 +27,7 @@ def get_command():
 
 	return command
 
-def parse_command(command):
+def execute_command(command):
 	try:
 		result = subprocess.run(command, shell = True, capture_output=True)
 	except:
@@ -50,8 +50,8 @@ def main():
 		# get user input
 		command = get_command()
 
-		# parse user input 
-		result  = parse_command(command)
+		# execute user input 
+		result  = execute_command(command)
 
 		# display ot stdout or stderr
 		display_result(result)
