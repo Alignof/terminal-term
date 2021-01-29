@@ -5,14 +5,16 @@ import subprocess
 
 # unittest
 class Testing(unittest.TestCase):
-	"""
-    def test_entered(self):
-        self.assertEqual(check_entered("1234"), True)
+	def get_result(self, command):
+		result  = execute_command(command)
+		stdout  = str(result.stdout, encoding='utf-8', errors='replace')
+		return stdout
 
-    def test_hit_and_blow(self):
-        self.assertEqual(hit_and_blow([1,2,3,4],[1,2,3,4]), (4,0))
-	"""
-	pass
+	def test_example(self):
+		self.assertEqual(1, 1)
+
+	def test_parse(self):
+		self.assertEqual(self.get_result("echo 'hello'"), "hello\n")
 
 # ====================================================================================================
 # ****************************************************************************************************
