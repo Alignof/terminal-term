@@ -25,6 +25,9 @@ def get_command():
 	if command.strip() == "exit":
 		sys.exit(1)
 
+	return command
+
+def parse_command(command):
 	try:
 		result = subprocess.run(command, shell = True, capture_output=True)
 	except:
@@ -34,18 +37,21 @@ def get_command():
 	return result
 
 def display_result(result):
-		if result.returncode == 0 :
-			stdout = str(result.stdout, encoding='utf-8', errors='replace')
-			print(stdout, end='')
-		else:
-			stderr = str(result.stderr, encoding='utf-8', errors='replace')
-			print(stderr, end='')
+	if result.returncode == 0 :
+		stdout = str(result.stdout, encoding='utf-8', errors='replace')
+		print(stdout, end='')
+	else:
+		stderr = str(result.stderr, encoding='utf-8', errors='replace')
+		print(stderr, end='')
 
 
 def main():
 	while True:
 		# get user input
-		result = get_command()
+		command = get_command()
+
+		# parse user input 
+		result  = parse_command(command)
 
 		# display ot stdout or stderr
 		display_result(result)
