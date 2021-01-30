@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
 import subprocess
-import gui_display
+from gui_display import *
 
 def get_command():
 	prompt_style = ">>> "
@@ -33,13 +33,15 @@ def display_result(result):
 def main():
 	while True:
 		# get user input
-		command = get_command()
+		#command = get_command()
+		command = gui_get_command()
 
 		# execute user input 
 		result  = execute_command(command)
 
 		# display stdout or stderr
-		display_result(result)
+		#display_result(result)
+		gui_display_result(result)
 
 
 if __name__ == "__main__":
