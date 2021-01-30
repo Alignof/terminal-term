@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
 import subprocess
-import gui
+import gui_display
 
 def get_command():
 	prompt_style = ">>> "
