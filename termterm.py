@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
 import subprocess
+import gui
 
 def get_command():
 	prompt_style = ">>> "
@@ -42,6 +43,13 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+	# setup gui
+	gui_setup()
+
+	# main loop
+	main()
+
+	# Finish up by removing from the screen
+	window.close()
 
 
