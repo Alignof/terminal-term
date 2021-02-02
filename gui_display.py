@@ -30,10 +30,16 @@ def gui_get_command():
 	if values['-INPUT-'].strip() == "exit" or event == sg.WINDOW_CLOSED or event == 'Quit':
 		sys.exit(1)
 
+	# clear command
+	if values['-INPUT-'].strip() == "clear":
+		window['-ML-'+sg.WRITE_ONLY_KEY]('')
+		values['-INPUT-'] = ""
+
 	window['-INPUT-']('')
 	return values['-INPUT-']
 
 def gui_display_result(result):
+
 	if result.returncode == 0 :
 		stdout = str(result.stdout, encoding='utf-8', errors='replace')
 		sg.cprint(stdout, text_color="white")
