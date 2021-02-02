@@ -10,7 +10,7 @@ def gui_setup():
 	sg.theme('DarkGrey13')
 
 	# Define the window's contents
-	layout = [	[sg.Text(size=(150,25), key='-OUTPUT-')],
+	layout = [	[sg.Output(size=(150,25), key='-OUTPUT-')],
 				[sg.Input(size=(150,1), key='-INPUT-')],
 				[sg.Button('Ok', bind_return_key=True), sg.Button('Quit')]]
 
@@ -19,6 +19,8 @@ def gui_setup():
 
 def gui_get_command():
 	event, values = window.read()
+	window['-INPUT-']('')
+
 	# See if user wants to quit or window was closed
 	if event == sg.WINDOW_CLOSED or event == 'Quit':
 		sys.exit(1)
@@ -28,8 +30,10 @@ def gui_get_command():
 def gui_display_result(result):
 	if result.returncode == 0 :
 		stdout = str(result.stdout, encoding='utf-8', errors='replace')
-		window['-OUTPUT-'].update(stdout)
+		#window['-OUTPUT-'].update(stdout)
+		print(stdout)
 	else:
 		stderr = str(result.stderr, encoding='utf-8', errors='replace')
-		window['-OUTPUT-'].update(stderr)
+		#window['-OUTPUT-'].update(stderr)
+		print(stderr)
 
