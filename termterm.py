@@ -12,15 +12,6 @@ def get_command():
 
 	return command
 
-def execute_command(command):
-	try:
-		result = subprocess.run(command, shell = True, capture_output=True)
-	except:
-		print("command error")
-		sys.exit(1)
-
-	return result
-
 def display_result(result):
 	if result.returncode == 0 :
 		stdout = str(result.stdout, encoding='utf-8', errors='replace')
@@ -29,6 +20,16 @@ def display_result(result):
 		stderr = str(result.stderr, encoding='utf-8', errors='replace')
 		print(stderr, end='')
 
+######################################################################################3
+
+def execute_command(command):
+	try:
+		result = subprocess.run(command, shell = True, capture_output=True)
+	except:
+		print("command error")
+		sys.exit(1)
+
+	return result
 
 def main():
 	while True:

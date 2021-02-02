@@ -12,7 +12,7 @@ def gui_setup():
 	# Define the window's contents
 	layout = [	[sg.Text(size=(150,25), key='-OUTPUT-')],
 				[sg.Input(size=(150,1), key='-INPUT-')],
-				[sg.Button('Ok'), sg.Button('Quit')]]
+				[sg.Button('Ok', bind_return_key=True), sg.Button('Quit')]]
 
 	# Create the window
 	window = sg.Window('Terminal-term', layout, resizable=True, size=(800,500))
