@@ -5,14 +5,17 @@ window = 0
 
 def gui_setup():
 	global window
+
+	# window theme
+	sg.theme('DarkGrey13')
+
 	# Define the window's contents
-	layout = [[sg.Text("terminal terminal")],
-				[sg.Text(size=(40,1), key='-OUTPUT-')],
-				[sg.Input(key='-INPUT-')],
+	layout = [	[sg.Text(size=(150,25), key='-OUTPUT-')],
+				[sg.Input(size=(150,1), key='-INPUT-')],
 				[sg.Button('Ok'), sg.Button('Quit')]]
 
 	# Create the window
-	window = sg.Window('Window Title', layout)
+	window = sg.Window('Terminal-term', layout, resizable=True, size=(800,500))
 
 def gui_get_command():
 	event, values = window.read()
