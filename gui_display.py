@@ -14,12 +14,12 @@ def gui_setup():
 	MLINE_KEY = '-ML-'+sg.WRITE_ONLY_KEY   # multiline element's key. Indicate it's an output only element
 
 	# Define the window's contents
-	layout = [	[sg.Multiline(size=(150,25), key=MLINE_KEY)],
-				[sg.Input(size=(150,1), key='-INPUT-')],
+	layout = [	[sg.Multiline(size=(250,30), key=MLINE_KEY)],
+				[sg.Input(size=(250,1), key='-INPUT-')],
 				[sg.Button('Ok', bind_return_key=True), sg.Button('Quit')]]
 
 	# Create the window
-	window = sg.Window('Terminal-term', layout, resizable=True, size=(800,500))
+	window = sg.Window('Terminal-term', layout, resizable=True, size=(1200,800))
 
 	# set display color
 	output_key = MLINE_KEY
@@ -43,7 +43,9 @@ def gui_get_command(window):
 def gui_display(result, pattern_key):
 	display_pattern = [	gui_display_normal,
 						gui_display_colorful,
+						gui_display_AA,
 						gui_display_rev]
+	print(pattern_key)
 	display_pattern[pattern_key](result)
 
 def gui_display_normal(result):
@@ -54,8 +56,41 @@ def gui_display_normal(result):
 		stderr = str(result.stderr, encoding='utf-8', errors='replace')
 		sg.cprint(stderr, text_color="red")
 
+def gui_display_AA(result):
+	if result.returncode == 0 :
+		out = str(result.stdout, encoding='utf-8', errors='replace').splitlines()
+	else:
+		out = str(result.stderr, encoding='utf-8', errors='replace').splitlines()
+
+	AA =[	"    ／ﾌﾌ              ム｀ヽ        \t\t\t",
+			"   / ノ)                    ）  ヽ  \t\t\t",
+			" ﾞ/ ｜    ( ´・ω・）ノ⌒（ゝ._,ノ  < \t\t\t",
+			" /  ﾉ⌒7⌒ヽーく   ＼  ／             \t\t\t",
+			" 丶＿ ノ ｡     ノ､    ｡|/           \t\t\t",
+			"     `ヽ `ー-'´_人`ー'ﾉ             \t\t\t",
+			"        丶 ￣ _人'彡ﾉ               \t\t\t",
+			"         ﾉ    r'十ヽ/               \t\t\t",
+			"     ／｀ヽ_/  十∨､                 \t\t\t",
+			"                                    \t\t\t"]
+
+	sg.cprint(AA[0])
+	sg.cprint(AA[1])
+	for num, line in enumerate(out):
+		if num+2 < len(AA):
+			sg.cprint(AA[num+2] + line)
+		else:
+			sg.cprint(AA[-1] + line)
+	
+	print(len(out))
+	print(len(AA))
+	if len(out)+2 < len(AA):
+		for index in range(len(out)+2, len(AA)):
+			sg.cprint(AA[index])
+
+	
+
 def gui_display_colorful(result):
-	bg_color = random.choice(['red', 'blue', 'green', 'black', 'gray'])
+	bg_color = random.choice(['red', 'blue', 'green', 'black', 'gray', 'brown', 'purple'])
 	window[MLINE_KEY].Widget.config(background = bg_color)
 	gui_display_normal(result)
 
