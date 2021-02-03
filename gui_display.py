@@ -1,11 +1,8 @@
 import sys
+import random
 import PySimpleGUI as sg
 	
-window = None
-
 def gui_setup():
-	global window
-
 	# window theme
 	sg.theme('DarkGrey13')
 	MLINE_KEY = '-ML-'+sg.WRITE_ONLY_KEY   # multiline element's key. Indicate it's an output only element
@@ -37,11 +34,25 @@ def gui_get_command(window):
 
 	return values['-INPUT-'].strip()
 
-def gui_display_result(result):
+def gui_display_result(result, pattern_key):
+	display_pattern = [	gui_display_normal,
+						gui_display_rev]
+	display_pattern[pattern_key](result)
+
+def gui_display_normal(result):
 	if result.returncode == 0 :
 		stdout = str(result.stdout, encoding='utf-8', errors='replace')
 		sg.cprint(stdout, text_color="white")
 	else:
 		stderr = str(result.stderr, encoding='utf-8', errors='replace')
 		sg.cprint(stderr, text_color="red")
+
+def gui_display_rev(result):
+	if result.returncode == 0 :
+		stdout = str(result.stdout[::-1], encoding='utf-8', errors='replace')
+		sg.cprint(stdout, text_color="white")
+	else:
+		stderr = str(result.stderr[::-1], encoding='utf-8', errors='replace')
+		sg.cprint(stderr, text_color="red")
+
 

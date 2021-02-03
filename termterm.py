@@ -3,6 +3,7 @@ import sys
 import subprocess
 from gui_display import *
 
+
 def get_command():
 	prompt_style = ">>> "
 	command = input(prompt_style)
@@ -22,6 +23,9 @@ def display_result(result):
 
 #######################################################################################
 
+pattern_key = 0
+PATTERN = 2
+
 def execute_command(command, window):
 	# exit terminal
 	if command == "exit":
@@ -29,7 +33,9 @@ def execute_command(command, window):
 
 	# clear command line
 	if command == "clear":
+		global pattern_key
 		window['-ML-'+sg.WRITE_ONLY_KEY]('')
+		pattern_key = random.randint(0, PATTERN - 1)
 		return subprocess.run("", shell = True, capture_output=True)
 
 	try:
@@ -49,7 +55,7 @@ def main(window):
 		result  = execute_command(command, window)
 
 		# display stdout or stderr
-		gui_display_result(result)
+		gui_display_result(result, pattern_key)
 
 
 if __name__ == "__main__":
