@@ -55,7 +55,7 @@ def main(window):
 		result  = execute_command(command, window)
 
 		# display stdout or stderr
-		gui_display_result(result, pattern_key)
+		gui_display(result, pattern_key)
 
 
 if __name__ == "__main__":

@@ -2,7 +2,13 @@ import sys
 import random
 import PySimpleGUI as sg
 	
+window = 0
+MLINE_KEY = 0
+
 def gui_setup():
+	global window
+	global MLINE_KEY
+
 	# window theme
 	sg.theme('DarkGrey13')
 	MLINE_KEY = '-ML-'+sg.WRITE_ONLY_KEY   # multiline element's key. Indicate it's an output only element
@@ -34,8 +40,9 @@ def gui_get_command(window):
 
 	return values['-INPUT-'].strip()
 
-def gui_display_result(result, pattern_key):
+def gui_display(result, pattern_key):
 	display_pattern = [	gui_display_normal,
+						gui_display_colorful,
 						gui_display_rev]
 	display_pattern[pattern_key](result)
 
@@ -46,6 +53,11 @@ def gui_display_normal(result):
 	else:
 		stderr = str(result.stderr, encoding='utf-8', errors='replace')
 		sg.cprint(stderr, text_color="red")
+
+def gui_display_colorful(result):
+	bg_color = random.choice(['red', 'blue', 'green', 'black', 'gray'])
+	window[MLINE_KEY].Widget.config(background = bg_color)
+	gui_display_normal(result)
 
 def gui_display_rev(result):
 	if result.returncode == 0 :
