@@ -23,7 +23,7 @@ def display_result(result):
 
 #######################################################################################
 
-pattern_key = 2
+pattern_key = 0
 PATTERN = 4
 
 def execute_command(command, window):
