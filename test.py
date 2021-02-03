@@ -11,5 +11,7 @@ class Testing(TestCase):
 
 	def test_parse(self):
 		self.assertEqual(self.get_result("echo 'hello'"), "hello\n")
+		self.assertEqual(self.get_result("echo 'hello world'"), "hello world\n")
+		#self.assertEqual(self.get_result("echo $SHELL"), "/bin/zsh\n")
 
 

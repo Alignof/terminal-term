@@ -20,9 +20,19 @@ def display_result(result):
 		stderr = str(result.stderr, encoding='utf-8', errors='replace')
 		print(stderr, end='')
 
-######################################################################################3
+#######################################################################################
 
 def execute_command(command):
+	# exit terminal
+	if command == "exit":
+		sys.exit(1)
+
+	# clear command line
+	if command == "clear":
+		print(type(window))
+		window['-ML-'+sg.WRITE_ONLY_KEY]('')
+		return subprocess.run("", shell = True, capture_output=True)
+
 	try:
 		result = subprocess.run(command, shell = True, capture_output=True)
 	except:
@@ -34,14 +44,12 @@ def execute_command(command):
 def main():
 	while True:
 		# get user input
-		#command = get_command()
 		command = gui_get_command()
 
 		# execute user input 
 		result  = execute_command(command)
 
 		# display stdout or stderr
-		#display_result(result)
 		gui_display_result(result)
 
 

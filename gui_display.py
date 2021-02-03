@@ -1,7 +1,7 @@
 import sys
 import PySimpleGUI as sg
 	
-window = 0
+window = None
 
 def gui_setup():
 	global window
@@ -22,24 +22,22 @@ def gui_setup():
 	output_key = MLINE_KEY
 	sg.cprint_set_output_destination(window, output_key)
 
+	return window
+
 def gui_get_command():
 	event, values = window.read()
 	sg.cprint(">>>  " + values['-INPUT-'], text_color="green")
 
 	# See if user wants to quit or window was closed
-	if values['-INPUT-'].strip() == "exit" or event == sg.WINDOW_CLOSED or event == 'Quit':
+	if event == sg.WINDOW_CLOSED or event == 'Quit':
 		sys.exit(1)
 
-	# clear command
-	if values['-INPUT-'].strip() == "clear":
-		window['-ML-'+sg.WRITE_ONLY_KEY]('')
-		values['-INPUT-'] = ""
-
+	# clear input field
 	window['-INPUT-']('')
-	return values['-INPUT-']
+
+	return values['-INPUT-'].strip()
 
 def gui_display_result(result):
-
 	if result.returncode == 0 :
 		stdout = str(result.stdout, encoding='utf-8', errors='replace')
 		sg.cprint(stdout, text_color="white")
