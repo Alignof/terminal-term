@@ -14,12 +14,12 @@ def gui_setup():
 	MLINE_KEY = '-ML-'+sg.WRITE_ONLY_KEY   # multiline element's key. Indicate it's an output only element
 
 	# Define the window's contents
-	layout = [	[sg.Multiline(size=(250,30), key=MLINE_KEY)],
-				[sg.Input(size=(250,1), key='-INPUT-')],
+	layout = [	[sg.Multiline(size=(230,40), key=MLINE_KEY)],
+				[sg.Input(size=(230,1), key='-INPUT-')],
 				[sg.Button('Ok', bind_return_key=True), sg.Button('Quit')]]
 
 	# Create the window
-	window = sg.Window('Terminal-term', layout, resizable=True, size=(1200,800))
+	window = sg.Window('Terminal-term', layout, resizable=True)
 
 	# set display color
 	output_key = MLINE_KEY
@@ -45,7 +45,6 @@ def gui_display(result, pattern_key):
 						gui_display_colorful,
 						gui_display_AA,
 						gui_display_rev]
-	print(pattern_key)
 	display_pattern[pattern_key](result)
 
 def gui_display_normal(result):
