@@ -22,14 +22,13 @@ def display_result(result):
 
 #######################################################################################
 
-def execute_command(command):
+def execute_command(command, window):
 	# exit terminal
 	if command == "exit":
 		sys.exit(1)
 
 	# clear command line
 	if command == "clear":
-		print(type(window))
 		window['-ML-'+sg.WRITE_ONLY_KEY]('')
 		return subprocess.run("", shell = True, capture_output=True)
 
@@ -41,13 +40,13 @@ def execute_command(command):
 
 	return result
 
-def main():
+def main(window):
 	while True:
 		# get user input
-		command = gui_get_command()
+		command = gui_get_command(window)
 
 		# execute user input 
-		result  = execute_command(command)
+		result  = execute_command(command, window)
 
 		# display stdout or stderr
 		gui_display_result(result)
@@ -55,10 +54,10 @@ def main():
 
 if __name__ == "__main__":
 	# setup gui
-	gui_setup()
+	window = gui_setup()
 
 	# main loop
-	main()
+	main(window)
 
 	# Finish up by removing from the screen
 	window.close()

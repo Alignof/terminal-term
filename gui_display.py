@@ -24,7 +24,7 @@ def gui_setup():
 
 	return window
 
-def gui_get_command():
+def gui_get_command(window):
 	event, values = window.read()
 	sg.cprint(">>>  " + values['-INPUT-'], text_color="green")
 
