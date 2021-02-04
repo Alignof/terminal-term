@@ -3,6 +3,7 @@ import sys
 import subprocess
 from gui_display import *
 
+
 def get_command():
 	prompt_style = ">>> "
 	command = input(prompt_style)
@@ -20,9 +21,23 @@ def display_result(result):
 		stderr = str(result.stderr, encoding='utf-8', errors='replace')
 		print(stderr, end='')
 
-######################################################################################3
+#######################################################################################
 
-def execute_command(command):
+pattern_key = 0
+PATTERN = 4
+
+def execute_command(command, window):
+	# exit terminal
+	if command == "exit":
+		sys.exit(1)
+
+	# clear command line
+	if command == "clear":
+		global pattern_key
+		window['-ML-'+sg.WRITE_ONLY_KEY]('')
+		pattern_key = random.randint(0, PATTERN - 1)
+		return subprocess.run("", shell = True, capture_output=True)
+
 	try:
 		result = subprocess.run(command, shell = True, capture_output=True)
 	except:
@@ -31,26 +46,24 @@ def execute_command(command):
 
 	return result
 
-def main():
+def main(window):
 	while True:
 		# get user input
-		#command = get_command()
-		command = gui_get_command()
+		command = gui_get_command(window)
 
 		# execute user input 
-		result  = execute_command(command)
+		result  = execute_command(command, window)
 
 		# display stdout or stderr
-		#display_result(result)
-		gui_display_result(result)
+		gui_display(result, pattern_key)
 
 
 if __name__ == "__main__":
 	# setup gui
-	gui_setup()
+	window = gui_setup()
 
 	# main loop
-	main()
+	main(window)
 
 	# Finish up by removing from the screen
 	window.close()
